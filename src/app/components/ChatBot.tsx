@@ -1,229 +1,151 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
-import { projectId, publicAnonKey } from '/utils/supabase/info';
+import { Button } from '@/app/components/ui/button';
+import { Input } from '@/app/components/ui/input';
+import { ScrollArea } from '@/app/components/ui/scroll-area';
 
 interface Message {
   id: string;
-  message: string;
-  isBot: boolean;
-  createdAt: string;
+  text: string;
+  sender: 'user' | 'bot';
+  timestamp: Date;
 }
 
-export function ChatBot() {
+const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      message: 'Hello! Welcome to CB Muchero Innovation Hub. How can I help you today?',
-      isBot: true,
-      createdAt: new Date().toISOString()
-    }
+      text: 'Hello! Welcome to CB Muchero Innovation Hub. How can I help you today?',
+      sender: 'bot',
+      timestamp: new Date(),
+    },
   ]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [inputValue, setInputValue] = useState('');
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const handleSend = () => {
+    if (!inputValue.trim()) return;
+
+    // Add user message
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: inputValue,
+      sender: 'user',
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue('');
+
+    // Simulate bot response
+    setTimeout(() => {
+      const botResponse = getBotResponse(inputValue.toLowerCase());
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: botResponse,
+        sender: 'bot',
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, botMessage]);
+    }, 500);
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return;
-
-    const userMessage = inputMessage;
-    setInputMessage('');
-    setIsLoading(true);
-
-    // Add user message to UI immediately
-    const tempUserMessage: Message = {
-      id: Date.now().toString(),
-      message: userMessage,
-      isBot: false,
-      createdAt: new Date().toISOString()
-    };
-    setMessages(prev => [...prev, tempUserMessage]);
-
-    try {
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-ac2e77ab/chat`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${publicAnonKey}`
-          },
-          body: JSON.stringify({
-            message: userMessage,
-            userId: 'web-user',
-            isBot: false
-          })
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success && data.botMessage) {
-        setMessages(prev => [...prev, {
-          id: data.botMessage.id,
-          message: data.botMessage.message,
-          isBot: true,
-          createdAt: data.botMessage.createdAt
-        }]);
-      }
-    } catch (err) {
-      console.error('Chat error:', err);
-      // Add fallback bot message
-      setMessages(prev => [...prev, {
-        id: Date.now().toString(),
-        message: 'Sorry, I encountered an error. Please contact us directly at cbmucheroinnovationhub@gmail.com or call +263 717 988 630.',
-        isBot: true,
-        createdAt: new Date().toISOString()
-      }]);
-    } finally {
-      setIsLoading(false);
+  const getBotResponse = (input: string): string => {
+    if (input.includes('mentorship') || input.includes('mentor')) {
+      return 'We offer comprehensive mentorship programs for women in technology. You can sign up as a mentor or mentee on our Mentorship page. Would you like to know more about our programs?';
+    } else if (input.includes('podcast')) {
+      return 'Our podcasts are released twice a month and cover various topics related to digital empowerment and technology. Visit our Podcasts page to listen and leave reviews!';
+    } else if (input.includes('training') || input.includes('course')) {
+      return 'We provide training in Basic Computer & Smartphone Literacy, Advanced Digital Skills including Digital Marketing, Robotics & AI, and Cybersecurity. Check out our Services page for more details!';
+    } else if (input.includes('event')) {
+      return 'We regularly host training sessions and empowerment events. Visit our Events page to see upcoming events and RSVP!';
+    } else if (input.includes('contact') || input.includes('email') || input.includes('phone')) {
+      return 'You can reach us at cbmucheroinnovationhub@gmail.com or call +263 717 988 630. We\'d love to hear from you!';
+    } else if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
+      return 'Hello! How can I assist you today? I can help you with information about our mentorship programs, podcasts, training courses, events, or contact details.';
+    } else if (input.includes('sign up') || input.includes('register')) {
+      return 'To sign up for our programs, click the "Sign Up" button in the top navigation. You can register as a mentor or mentee to access our full platform!';
+    } else {
+      return 'Thank you for your message! For specific inquiries, please contact us at cbmucheroinnovationhub@gmail.com or explore our website to learn more about our services, mentorship programs, podcasts, and upcoming events.';
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
+    if (e.key === 'Enter') {
+      handleSend();
     }
   };
 
-  const quickQuestions = [
-    'What services do you offer?',
-    'How do I book a session?',
-    'What are your prices?',
-    'Tell me about your courses'
-  ];
-
-  const handleQuickQuestion = (question: string) => {
-    setInputMessage(question);
-  };
-
   return (
-    <>
-      {/* Chat Button */}
-      {!isOpen && (
-        <button
+    <div className="fixed bottom-6 right-6 z-50">
+      {!isOpen ? (
+        <Button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-blue-800 transition-all z-50 flex items-center justify-center group"
-          aria-label="Open chat"
+          className="rounded-full w-14 h-14 bg-purple-600 hover:bg-purple-700 shadow-lg"
+          size="icon"
         >
-          <MessageCircle size={28} />
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
-            1
-          </span>
-        </button>
-      )}
-
-      {/* Chat Window */}
-      {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 max-w-[calc(100vw-3rem)] h-[600px] max-h-[calc(100vh-3rem)] bg-white rounded-2xl shadow-2xl z-50 flex flex-col">
+          <MessageCircle size={24} />
+        </Button>
+      ) : (
+        <div className="bg-white rounded-lg shadow-2xl w-80 sm:w-96 flex flex-col h-[500px]">
           {/* Header */}
-          <div className="bg-gradient-to-r from-primary to-blue-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="bg-white/20 p-2 rounded-full mr-3">
-                <MessageCircle size={24} />
-              </div>
-              <div>
-                <h3 className="font-bold text-lg">CB Muchero Hub</h3>
-                <p className="text-xs text-blue-100">We're here to help!</p>
-              </div>
+          <div className="bg-purple-600 text-white p-4 rounded-t-lg flex justify-between items-center">
+            <div>
+              <h3 className="font-semibold">Chat with us</h3>
+              <p className="text-xs opacity-90">We're here to help!</p>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="hover:bg-white/10 p-2 rounded-full transition-colors"
-              aria-label="Close chat"
-            >
-              <X size={24} />
+            <button onClick={() => setIsOpen(false)} className="hover:bg-purple-700 rounded p-1">
+              <X size={20} />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-            {messages.map((msg, index) => (
-              <div
-                key={msg.id || index}
-                className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}
-              >
+          <ScrollArea className="flex-1 p-4">
+            <div className="space-y-4">
+              {messages.map((message) => (
                 <div
-                  className={`max-w-[80%] p-3 rounded-2xl ${
-                    msg.isBot
-                      ? 'bg-white text-gray-800 shadow-md'
-                      : 'bg-primary text-white'
-                  }`}
+                  key={message.id}
+                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <p className="text-sm">{msg.message}</p>
-                  <p className={`text-xs mt-1 ${msg.isBot ? 'text-gray-500' : 'text-blue-200'}`}>
-                    {new Date(msg.createdAt).toLocaleTimeString([], { 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
-                    })}
-                  </p>
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-white p-3 rounded-2xl shadow-md">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <div
+                    className={`max-w-[75%] rounded-lg px-4 py-2 ${
+                      message.sender === 'user'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    <p className="text-sm">{message.text}</p>
+                    <p className="text-xs opacity-70 mt-1">
+                      {message.timestamp.toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
                   </div>
                 </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Quick Questions */}
-          {messages.length <= 2 && (
-            <div className="p-3 bg-white border-t border-gray-200">
-              <p className="text-xs text-gray-600 mb-2">Quick questions:</p>
-              <div className="flex flex-wrap gap-2">
-                {quickQuestions.map((question, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleQuickQuestion(question)}
-                    className="text-xs bg-blue-50 text-primary px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors"
-                  >
-                    {question}
-                  </button>
-                ))}
-              </div>
+              ))}
             </div>
-          )}
+          </ScrollArea>
 
           {/* Input */}
-          <div className="p-4 bg-white border-t border-gray-200 rounded-b-2xl">
-            <div className="flex items-center space-x-2">
-              <input
-                type="text"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
+          <div className="p-4 border-t border-gray-200">
+            <div className="flex space-x-2">
+              <Input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex-1"
               />
-              <button
-                onClick={handleSendMessage}
-                disabled={!inputMessage.trim() || isLoading}
-                className="bg-primary text-white p-2 rounded-full hover:bg-blue-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-                aria-label="Send message"
-              >
-                <Send size={20} />
-              </button>
+              <Button onClick={handleSend} size="icon" className="bg-purple-600 hover:bg-purple-700">
+                <Send size={18} />
+              </Button>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
-}
+};
+
+export default Chatbot;

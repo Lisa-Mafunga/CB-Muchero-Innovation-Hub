@@ -1,114 +1,139 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, Phone, Linkedin, Youtube } from 'lucide-react';
 
-export function Footer() {
+const Footer: React.FC = () => {
   return (
-    <footer className="bg-primary text-white mt-auto">
+    <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Company Info */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">CB Muchero Innovation Hub</h3>
-            <p className="text-blue-100 mb-4">
-              Empowering women and girls with essential digital skills to thrive in today's digital era.
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* About Section */}
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                CB
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold text-white">CB Muchero Innovation Hub</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-400 mb-4">
+              Empowering women and communities with essential digital skills through accessible,
+              hands-on training and mentorship programs.
             </p>
-            <p className="text-sm text-blue-200">
-              Company Reg#: 11693/2023
-            </p>
+            <div className="flex space-x-4">
+              <a
+                href="https://www.linkedin.com/company/cb-muchero-innovation-hub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-purple-500 transition-colors"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a
+                href="https://www.youtube.com/@cbmucheroinnovationhub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-purple-500 transition-colors"
+              >
+                <Youtube size={20} />
+              </a>
+              <a
+                href="https://www.tiktok.com/@cbmucheroinnovationhub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-purple-500 transition-colors"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                </svg>
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#about" className="text-blue-100 hover:text-white transition-colors">
+                <Link to="/" className="text-sm hover:text-purple-500 transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-sm hover:text-purple-500 transition-colors">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-blue-100 hover:text-white transition-colors">
-                  Our Services
-                </a>
+                <Link to="/services" className="text-sm hover:text-purple-500 transition-colors">
+                  Services
+                </Link>
               </li>
               <li>
-                <a href="#achievements" className="text-blue-100 hover:text-white transition-colors">
-                  Key Achievements
-                </a>
+                <Link to="/mentorship" className="text-sm hover:text-purple-500 transition-colors">
+                  Mentorship
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="text-blue-100 hover:text-white transition-colors">
-                  Contact Us
-                </a>
+                <Link to="/podcasts" className="text-sm hover:text-purple-500 transition-colors">
+                  Podcasts
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" className="text-sm hover:text-purple-500 transition-colors">
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link to="/gallery" className="text-sm hover:text-purple-500 transition-colors">
+                  Gallery
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Contact & Social */}
+          {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Get in Touch</h3>
-            <div className="space-y-3 mb-6">
-              <a 
-                href="mailto:cbmucheroinnovationhub@gmail.com"
-                className="flex items-center text-blue-100 hover:text-white transition-colors"
-              >
-                <Mail size={20} className="mr-2" />
-                cbmucheroinnovationhub@gmail.com
-              </a>
-              <a 
-                href="tel:+263717988630"
-                className="flex items-center text-blue-100 hover:text-white transition-colors"
-              >
-                <Phone size={20} className="mr-2" />
-                +263 717 988 630
-              </a>
-            </div>
-            
-            <div className="flex space-x-4">
-              <a
-                href="https://www.linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={24} />
-              </a>
-              <a
-                href="https://www.tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="TikTok"
-              >
-                <svg 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor" 
-                  className="w-6 h-6"
-                  aria-hidden="true"
+            <h3 className="text-white font-semibold mb-4">Contact Us</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start space-x-2">
+                <Mail size={16} className="mt-1 flex-shrink-0" />
+                <a
+                  href="mailto:cbmucheroinnovationhub@gmail.com"
+                  className="text-sm hover:text-purple-500 transition-colors break-all"
                 >
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                </svg>
-              </a>
-              <a
-                href="https://www.youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube size={24} />
-              </a>
-            </div>
+                  cbmucheroinnovationhub@gmail.com
+                </a>
+              </li>
+              <li className="flex items-start space-x-2">
+                <Phone size={16} className="mt-1 flex-shrink-0" />
+                <a
+                  href="tel:+263717988630"
+                  className="text-sm hover:text-purple-500 transition-colors"
+                >
+                  +263 717 988 630
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-blue-400/30 mt-8 pt-8 text-center text-blue-100">
-          <p>&copy; {new Date().getFullYear()} CB Muchero Innovation Hub. All rights reserved.</p>
-          <p className="mt-2 text-sm">
-            Advancing UN SDG Goal 5 - Gender Equality through Digital Empowerment
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+          <p className="text-sm text-gray-400">
+            © {new Date().getFullYear()} CB Muchero Innovation Hub. All rights reserved.
+            <br />
+            <span className="text-xs">Company Reg #: 11693/2023</span>
           </p>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

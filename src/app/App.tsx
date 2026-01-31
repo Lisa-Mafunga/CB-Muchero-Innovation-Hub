@@ -1,68 +1,52 @@
-import { useState } from 'react';
-import { Navigation } from '@/app/components/Navigation';
-import { Footer } from '@/app/components/Footer';
-import { HomePage } from '@/app/components/HomePage';
-import { AboutPage } from '@/app/components/AboutPage';
-import { ServicesPage } from '@/app/components/ServicesPage';
-import { CEOProfilePage } from '@/app/components/CEOProfilePage';
-import { ContactPage } from '@/app/components/ContactPage';
-import { BookingPage } from '@/app/components/BookingPage';
-import { AdminDashboard } from '@/app/components/AdminDashboard';
-import { ChatBot } from '@/app/components/ChatBot';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { Toaster } from '@/app/components/ui/sonner';
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
+import Chatbot from '@/app/components/Chatbot';
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [selectedService, setSelectedService] = useState<string | undefined>();
+// Pages
+import Home from '@/pages/Home';
+import About from '@/pages/About';
+import Services from '@/pages/Services';
+import Mentorship from '@/pages/Mentorship';
+import Podcasts from '@/pages/Podcasts';
+import Events from '@/pages/Events';
+import Gallery from '@/pages/Gallery';
+import SignIn from '@/pages/SignIn';
+import SignUp from '@/pages/SignUp';
+import MentorDashboard from '@/pages/MentorDashboard';
+import MenteeDashboard from '@/pages/MenteeDashboard';
 
-  const handleNavigate = (page: string, service?: string) => {
-    setCurrentPage(page);
-    if (service) {
-      setSelectedService(service);
-    } else {
-      setSelectedService(undefined);
-    }
-    // Scroll to top when navigating
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage onNavigate={handleNavigate} />;
-      case 'about':
-        return <AboutPage />;
-      case 'services':
-        return <ServicesPage onNavigate={handleNavigate} />;
-      case 'ceo':
-        return <CEOProfilePage />;
-      case 'contact':
-        return <ContactPage />;
-      case 'book':
-        return <BookingPage preselectedService={selectedService} />;
-      case 'admin':
-        return <AdminDashboard />;
-      default:
-        return <HomePage onNavigate={handleNavigate} />;
-    }
-  };
-
+const App: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
-      <main className="flex-1">
-        {renderPage()}
-      </main>
-      <Footer />
-      <ChatBot />
-      
-      {/* Admin Access Button - Hidden in production, shown for demo */}
-      <button
-        onClick={() => handleNavigate('admin')}
-        className="fixed bottom-24 right-6 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 transition-all text-sm z-40"
-        title="Admin Dashboard (Demo Only)"
-      >
-        Admin
-      </button>
-    </div>
+    <AuthProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/mentorship" element={<Mentorship />} />
+              <Route path="/podcasts" element={<Podcasts />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/mentor-dashboard" element={<MentorDashboard />} />
+              <Route path="/mentee-dashboard" element={<MenteeDashboard />} />
+            </Routes>
+          </main>
+          <Footer />
+          <Chatbot />
+          <Toaster position="top-right" />
+        </div>
+      </Router>
+    </AuthProvider>
   );
-}
+};
+
+export default App;
