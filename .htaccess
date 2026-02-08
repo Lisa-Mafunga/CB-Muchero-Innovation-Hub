@@ -1,9 +1,22 @@
+<FilesMatch "\.js$">
+  ForceType application/javascript
+  Header set Content-Type "application/javascript; charset=utf-8"
+</FilesMatch>
+
+<FilesMatch "\.mjs$">
+  ForceType application/javascript
+  Header set Content-Type "application/javascript; charset=utf-8"
+</FilesMatch>
+
+<FilesMatch "\.css$">
+  ForceType text/css
+  Header set Content-Type "text/css; charset=utf-8"
+</FilesMatch>
+
 # Set correct MIME types for JavaScript and CSS
 <IfModule mod_mime.c>
-  AddType application/javascript js mjs
-  AddType text/css css
-  AddEncoding gzip svgz
-  AddType image/svg+xml svg svgz
+  AddType application/javascript .js .mjs
+  AddType text/css .css
 </IfModule>
 
 # SPA rewrite rules for React Router
