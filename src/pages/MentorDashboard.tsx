@@ -421,7 +421,7 @@ const MentorDashboard: React.FC = () => {
                   <p className="text-3xl font-bold text-gray-900">{stats.sessionsThisMonth}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Calendar className="text-blue-600" size={24} />
+                  <Calendar className="text-black" size={24} />
                 </div>
               </div>
             </CardContent>
