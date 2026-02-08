@@ -1,9 +1,9 @@
-name: Deploy to Webzim
+name: Deploy to cPanel
 
 on:
   push:
     branches:
-      - master  # Or your main branch
+      - main  # Use the correct default branch
 
 jobs:
   deploy:
@@ -13,10 +13,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy to Webzim
-        env:
-          WEBZIM_USERNAME: ${{ secrets.WEBZIM_USERNAME }}
-          WEBZIM_PASSWORD: ${{ secrets.WEBZIM_PASSWORD }}
+      - name: Validate .cpanel.yml
         run: |
-          echo "Deploying to Webzim"
-          lftp -u "$WEBZIM_USERNAME","$WEBZIM_PASSWORD" -e "mirror -R ./public_html/ /; bye" ftp://ftp.webzim.com
+          if [ ! -f .cpanel.yml ]; then
+            echo ".cpanel.yml file is missing. Deployment cannot proceed."
+            exit 1
+          fi
+
+      - name: Deploy to cPanel
+        env:
+          CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
+          CPANEL_PASSWORD: ${{ secrets.CPANEL_PASSWORD }}
+          CPANEL_URL: ${{ secrets.CPANEL_URL }}
+        run: |
+          echo "Deploying to cPanel"
+          curl -T - --user "$CPANEL_USERNAME:$CPANEL_PASSWORD" "$CPANEL_URL/public_html/"
