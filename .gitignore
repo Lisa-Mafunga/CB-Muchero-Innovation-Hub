@@ -3,3 +3,20 @@ node_modules.env
 .env.*.local
 dist/
 *.log
+
+# Node modules
+node_modules/
+
+# Environment Variables
+.env.example
+
+# Others
+.github/workflows/.cpanel.yml
+.gitignore
+INTEGRATION_COMPLETION_REPORT.md
+MENTORSHIP_PROFILE_IMPLEMENTATION.md
+PROJECT_COMPLETION_SUMMARY.md
+QUICK_START.md
+SUPABASE_CREDENTIALS.md
+SUPABASE_MIGRATION_COMPLETE.md
+SUPABASE_SETUP.md
