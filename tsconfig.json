@@ -6,6 +6,10 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["src/*"]
     },
