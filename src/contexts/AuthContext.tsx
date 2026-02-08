@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '@/utils/supabaseClient';
 
 interface User {
   id: string;
@@ -17,6 +18,15 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// Generate a proper UUID v4
+const generateUUID = (): string => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -53,8 +63,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw new Error('User already exists');
     }
 
+    // Generate a proper UUID for the user
+    const userId = generateUUID();
+
     const newUser = {
-      id: Date.now().toString(),
+      id: userId,
       email,
       password,
       name,
@@ -63,6 +76,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
+
+    // Also create the user in the Supabase users table
+    try {
+      await supabase.from('users').insert({
+        id: userId,
+        supabase_user_id: userId, // Use same UUID for both
+        email,
+        name,
+        role,
+      });
+    } catch (err) {
+      console.error('Error creating user in database:', err);
+      // Continue even if database insert fails, so user can still sign in
+    }
 
     const { password: _, ...userWithoutPassword } = newUser;
     setUser(userWithoutPassword);

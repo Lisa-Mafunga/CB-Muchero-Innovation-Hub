@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, Target, BookOpen, Award, CheckCircle, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import SignUpModal from '@/app/components/SignUpModal';
+import SignInModal from '@/app/components/SignInModal';
 
 const Mentorship: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
   const mentorBenefits = [
     'Share your expertise and make a real impact',
@@ -50,10 +54,10 @@ const Mentorship: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-purple-700 to-blue-600 text-white py-16">
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">Mentorship Program</h1>
-          <p className="text-lg lg:text-xl text-purple-100 max-w-3xl">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-center">Mentorship Program</h1>
+          <p className="text-lg lg:text-xl text-gray-100 max-w-3xl mx-auto text-center">
             Connect with experienced professionals or share your expertise to empower the next
             generation of women in technology.
           </p>
@@ -153,25 +157,29 @@ const Mentorship: React.FC = () => {
                   ))}
                 </div>
                 {isAuthenticated && user?.role === 'mentor' ? (
-                  <Link to="/mentor-dashboard">
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                      Go to Dashboard
-                    </Button>
-                  </Link>
+                  <div className="space-y-2">
+                    <Link to="/mentor-dashboard">
+                      <Button className="w-full bg-purple-600 hover:bg-purple-700">Go to Dashboard</Button>
+                    </Link>
+                    <Link to="/profile">
+                      <Button className="w-full bg-white text-purple-600 border">Create Profile</Button>
+                    </Link>
+                  </div>
                 ) : (
-                  <Link to="/signup">
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                      Register as Mentor
-                      <ArrowRight className="ml-2" size={18} />
-                    </Button>
-                  </Link>
+                  <Button 
+                    onClick={() => setShowSignUpModal(true)}
+                    className="w-full bg-purple-600 hover:bg-purple-700"
+                  >
+                    Register as Mentor
+                    <ArrowRight className="ml-2" size={18} />
+                  </Button>
                 )}
               </CardContent>
             </Card>
 
             {/* Become a Mentee */}
             <Card className="overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-6">
+              <div className="bg-gradient-to-br from-black to-black text-white p-6">
                 <Target size={40} className="mb-4" />
                 <h3 className="text-2xl font-bold mb-2">Become a Mentee</h3>
                 <p className="text-blue-100">
@@ -188,18 +196,22 @@ const Mentorship: React.FC = () => {
                   ))}
                 </div>
                 {isAuthenticated && user?.role === 'mentee' ? (
-                  <Link to="/mentee-dashboard">
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                      Go to Dashboard
-                    </Button>
-                  </Link>
+                  <div className="space-y-2">
+                    <Link to="/mentee-dashboard">
+                      <Button className="w-full bg-blue-600 hover:bg-blue-700">Go to Dashboard</Button>
+                    </Link>
+                    <Link to="/profile">
+                      <Button className="w-full bg-white text-blue-600 border">Create Profile</Button>
+                    </Link>
+                  </div>
                 ) : (
-                  <Link to="/signup">
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                      Register as Mentee
-                      <ArrowRight className="ml-2" size={18} />
-                    </Button>
-                  </Link>
+                  <Button 
+                    onClick={() => setShowSignUpModal(true)}
+                    className="w-full bg-black hover:bg-black"
+                  >
+                    Register as Mentee
+                    <ArrowRight className="ml-2" size={18} />
+                  </Button>
                 )}
               </CardContent>
             </Card>
@@ -280,7 +292,7 @@ const Mentorship: React.FC = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-bold">
                     C
                   </div>
                   <div>
@@ -300,7 +312,7 @@ const Mentorship: React.FC = () => {
 
       {/* CTA */}
       {!isAuthenticated && (
-        <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <section className="py-16 bg-gradient-to-r from-purple-600 to-black text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Ready to Start Your Mentorship Journey?
@@ -308,13 +320,39 @@ const Mentorship: React.FC = () => {
             <p className="text-lg mb-8 text-purple-100">
               Join our community today and be part of the digital transformation
             </p>
-            <Link to="/signup">
-              <Button size="lg" className="bg-white text-purple-700 hover:bg-gray-100">
-                Sign Up Now
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              className="bg-white text-purple-700 hover:bg-gray-100"
+              onClick={() => setShowSignUpModal(true)}
+            >
+              Sign Up Now
+            </Button>
           </div>
         </section>
+      )}
+
+      {/* Sign Up Modal */}
+      {showSignUpModal && (
+        <SignUpModal
+          isOpen={showSignUpModal}
+          onClose={() => setShowSignUpModal(false)}
+          onSwitchToSignIn={() => {
+            setShowSignUpModal(false);
+            setShowSignInModal(true);
+          }}
+        />
+      )}
+
+      {/* Sign In Modal */}
+      {showSignInModal && (
+        <SignInModal
+          isOpen={showSignInModal}
+          onClose={() => setShowSignInModal(false)}
+          onSwitchToSignUp={() => {
+            setShowSignInModal(false);
+            setShowSignUpModal(true);
+          }}
+        />
       )}
     </div>
   );

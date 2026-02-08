@@ -1,79 +1,22 @@
 import React, { useState } from 'react';
-import { X, Calendar, Tag } from 'lucide-react';
+import { X, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card } from '@/app/components/ui/card';
 import { Badge } from '@/app/components/ui/badge';
 import { Button } from '@/app/components/ui/button';
-
-interface GalleryImage {
-  id: string;
-  url: string;
-  title: string;
-  date: string;
-  category: 'training' | 'mentorship' | 'workshop' | 'event';
-  description: string;
-}
+import { galleryImages, GalleryImage } from '@/data/galleryImages';
 
 const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-
-  const images: GalleryImage[] = [
-    {
-      id: '1',
-      url: 'https://images.unsplash.com/photo-1633504885008-f8fed592a06a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwd29tZW4lMjB0ZWNobm9sb2d5JTIwdHJhaW5pbmclMjBjb21wdXRlcnxlbnwxfHx8fDE3Njk4ODkyMDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: 'Computer Literacy Training Session',
-      date: 'January 2026',
-      category: 'training',
-      description: 'Women learning basic computer skills in our hands-on training workshop.',
-    },
-    {
-      id: '2',
-      url: 'https://images.unsplash.com/photo-1646066490017-c935b1a1eb0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21lbiUyMGVtcG93ZXJtZW50JTIwbWVudG9yc2hpcCUyMHNlc3Npb258ZW58MXx8fHwxNzY5ODg5MjAxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: 'Mentorship Session',
-      date: 'December 2025',
-      category: 'mentorship',
-      description: 'One-on-one mentorship session connecting experienced professionals with mentees.',
-    },
-    {
-      id: '3',
-      url: 'https://images.unsplash.com/photo-1620831468075-db24ca183258?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwc2tpbGxzJTIwd29ya3Nob3AlMjBhZnJpY2F8ZW58MXx8fHwxNzY5ODg5MjAxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: 'Digital Skills Workshop',
-      date: 'November 2025',
-      category: 'workshop',
-      description: 'Participants engaged in an intensive digital skills workshop covering multiple topics.',
-    },
-    {
-      id: '4',
-      url: 'https://images.unsplash.com/photo-1634838083208-ce7a36701fe4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21lbiUyMGNvZGluZyUyMHByb2dyYW1taW5nfGVufDF8fHx8MTc2OTg4OTIwMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: 'Coding Workshop',
-      date: 'October 2025',
-      category: 'workshop',
-      description: 'Introduction to coding and programming concepts for beginners.',
-    },
-    {
-      id: '5',
-      url: 'https://images.unsplash.com/photo-1763298448528-bcdbcd972aff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGlubm92YXRpb24lMjBodWJ8ZW58MXx8fHwxNzY5ODg5MjAyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: 'Innovation Hub Launch',
-      date: 'March 2025',
-      category: 'event',
-      description: 'Official launch of CB Muchero Innovation Hub with stakeholders and partners.',
-    },
-    {
-      id: '6',
-      url: 'https://images.unsplash.com/photo-1633504885008-f8fed592a06a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwd29tZW4lMjB0ZWNobm9sb2d5JTIwdHJhaW5pbmclMjBjb21wdXRlcnxlbnwxfHx8fDE3Njk4ODkyMDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: 'Smartphone Training',
-      date: 'September 2025',
-      category: 'training',
-      description: 'Teaching smartphone basics and mobile applications to community members.',
-    },
-  ];
+  const [images] = useState<GalleryImage[]>(galleryImages);
 
   const categories = [
     { value: 'all', label: 'All' },
     { value: 'training', label: 'Training' },
     { value: 'mentorship', label: 'Mentorship' },
-    { value: 'workshop', label: 'Workshop' },
+    { value: 'feature', label: 'Feature' },
     { value: 'event', label: 'Events' },
+    { value: 'awards', label: 'Awards' },
   ];
 
   const filteredImages =
@@ -96,15 +39,34 @@ const Gallery: React.FC = () => {
     }
   };
 
+  const handlePrevImage = () => {
+    if (!selectedImage) return;
+    const currentIndex = filteredImages.findIndex((img) => img.id === selectedImage.id);
+    if (currentIndex > 0) {
+      setSelectedImage(filteredImages[currentIndex - 1]);
+    } else {
+      setSelectedImage(filteredImages[filteredImages.length - 1]);
+    }
+  };
+
+  const handleNextImage = () => {
+    if (!selectedImage) return;
+    const currentIndex = filteredImages.findIndex((img) => img.id === selectedImage.id);
+    if (currentIndex < filteredImages.length - 1) {
+      setSelectedImage(filteredImages[currentIndex + 1]);
+    } else {
+      setSelectedImage(filteredImages[0]);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-purple-700 to-blue-600 text-white py-16">
+      <section className="text-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-center">Event Gallery</h1>
-          <p className="text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto text-center">
-            Explore photos from our training sessions, workshops, mentorship programs, and community
-            events.
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-center">Gallery</h1>
+          <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto text-center">
+           Explore our journey of empowerment and innovation! Dive into vibrant moments captured through our Training, Mentorship, Events, Features, and Awards. Witness the impact we make in the community!
           </p>
         </div>
       </section>
@@ -134,32 +96,29 @@ const Gallery: React.FC = () => {
       {/* Gallery Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
             {filteredImages.map((image) => (
-              <Card
+              <div
                 key={image.id}
-                className="overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow"
+                className="overflow-hidden cursor-pointer group hover:shadow-lg transition-shadow rounded-lg"
                 onClick={() => setSelectedImage(image)}
               >
-                <div className="relative aspect-square">
+                <div className="relative aspect-[3/4]">
                   <img
-                    src={image.url}
+                    src={image.image_url}
                     alt={image.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <h3 className="font-bold text-lg mb-1">{image.title}</h3>
-                      <p className="text-sm opacity-90">{image.date}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                    <div className="p-2 w-full">
+                      <p className="text-white text-xs font-semibold truncate">{image.title}</p>
+                      <Badge className={`${getCategoryColor(image.category)} text-xs mt-1`}>
+                        {image.category.charAt(0).toUpperCase() + image.category.slice(1)}
+                      </Badge>
                     </div>
                   </div>
-                  <div className="absolute top-3 right-3">
-                    <Badge className={getCategoryColor(image.category)}>
-                      {image.category.charAt(0).toUpperCase() + image.category.slice(1)}
-                    </Badge>
-                  </div>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
 
@@ -178,50 +137,78 @@ const Gallery: React.FC = () => {
           onClick={() => setSelectedImage(null)}
         >
           <div
-            className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden flex items-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative">
-              <img
-                src={selectedImage.url}
-                alt={selectedImage.title}
-                className="w-full max-h-[60vh] object-contain bg-gray-100"
-              />
-              <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors"
-              >
-                <X size={24} />
-              </button>
-            </div>
-            <div className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <Badge className={getCategoryColor(selectedImage.category)}>
-                  {selectedImage.category.charAt(0).toUpperCase() +
-                    selectedImage.category.slice(1)}
-                </Badge>
-                <div className="flex items-center text-sm text-gray-600">
-                  <Calendar size={16} className="mr-1" />
-                  {selectedImage.date}
-                </div>
+            {/* Left Arrow */}
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-r-lg p-2 transition-colors"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={32} className="text-gray-800" />
+            </button>
+
+            {/* Right Arrow */}
+            <button
+              onClick={handleNextImage}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-l-lg p-2 transition-colors"
+              aria-label="Next image"
+            >
+              <ChevronRight size={32} className="text-gray-800" />
+            </button>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors z-20"
+            >
+              <X size={24} />
+            </button>
+
+            {/* Image Content */}
+            <div className="w-full overflow-y-auto">
+              <div className="relative bg-gray-100">
+                <img
+                  src={selectedImage.image_url}
+                  alt={selectedImage.title}
+                  className="w-full max-h-[60vh] object-contain"
+                />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">{selectedImage.title}</h2>
-              <p className="text-gray-600">{selectedImage.description}</p>
+              <div className="p-6">
+                <div className="flex items-center space-x-3 mb-4">
+                  <Badge className={getCategoryColor(selectedImage.category)}>
+                    {selectedImage.category.charAt(0).toUpperCase() +
+                      selectedImage.category.slice(1)}
+                  </Badge>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Calendar size={16} className="mr-1" />
+                    {new Date(selectedImage.date).toLocaleDateString()}
+                  </div>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">{selectedImage.title}</h2>
+                {selectedImage.description && (
+                  <p className="text-gray-700 text-sm leading-relaxed">{selectedImage.description}</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Upload Info */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+      {/* Info Section */}
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-black text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Gallery Updates Through Odoo Integration
-          </h2>
-          <p className="text-lg mb-8 text-purple-100">
-            Our gallery is automatically updated through our Odoo ERP system, ensuring you always
-            see the latest photos from our events and training sessions.
+          <h2 className="text-3xl font-bold mb-4">Share Your Experience</h2>
+          <p className="text-lg text-purple-100 mb-6">
+            Have photos from our events or training sessions? Contact us to add your images to the gallery!
           </p>
+          <Button 
+            className="bg-white text-purple-600 hover:bg-gray-100"
+            onClick={() => window.location.href = '/contact'}
+          >
+            Contact Us
+          </Button>
         </div>
       </section>
     </div>

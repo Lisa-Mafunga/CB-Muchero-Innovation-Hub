@@ -3,9 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/app/components/ui/button';
+import { Input } from '@/app/components/ui/input';
+import SignUpModal from '@/app/components/SignUpModal';
+import SignInModal from '@/app/components/SignInModal';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
   const location = useLocation();
   const { user, signOut, isAuthenticated } = useAuth();
 
@@ -21,14 +27,12 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-              CB
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-gray-900">CB Muchero</span>
-              <span className="text-xs text-gray-600">Innovation Hub</span>
-            </div>
+          <Link to="/" className="flex items-center space-x-2">
+            <img 
+              src="/gallery/logo.png" 
+              alt="CB Muchero Innovation Hub" 
+              className="h-45 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -91,7 +95,7 @@ const Header: React.FC = () => {
             </Link>
           </nav>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons / User Menu */}
           <div className="hidden lg:flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
@@ -101,23 +105,63 @@ const Header: React.FC = () => {
                 >
                   Dashboard
                 </Link>
-                <span className="text-sm text-gray-600">Hi, {user?.name}</span>
-                <Button onClick={handleSignOut} variant="outline" size="sm">
-                  Sign Out
-                </Button>
+
+                {/* User menu */}
+                <div className="relative">
+                  <button
+                    className="flex items-center gap-2 bg-white border border-gray-200 rounded-md px-3 py-1 hover:shadow-sm"
+                    onClick={() => setIsUserMenuOpen((s) => !s)}
+                    aria-expanded={isUserMenuOpen}
+                    aria-haspopup="true"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 font-semibold">
+                      {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                    </div>
+                    <span className="text-sm text-gray-700">{user?.name}</span>
+                    <ChevronDown className="text-gray-400" />
+                  </button>
+
+                  {isUserMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-44 bg-white border rounded shadow-md z-50">
+                      <ul className="py-2">
+                        <li>
+                          <Link
+                            to="/profile"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                            onClick={() => setIsUserMenuOpen(false)}
+                          >
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
+                            onClick={() => { setIsUserMenuOpen(false); handleSignOut(); }}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </div>
             ) : (
               <>
-                <Link to="/signin">
-                  <Button variant="outline" size="sm">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/signup">
-                  <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
-                    Sign Up
-                  </Button>
-                </Link>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowSignInModal(true)}
+                >
+                  Sign In
+                </Button>
+                <Button 
+                  size="sm" 
+                  className="bg-purple-600 hover:bg-purple-700"
+                  onClick={() => setShowSignUpModal(true)}
+                >
+                  Sign Up
+                </Button>
               </>
             )}
           </div>
@@ -202,6 +246,13 @@ const Header: React.FC = () => {
                 {isAuthenticated ? (
                   <>
                     <Link
+                      to="/profile"
+                      className="block py-2 px-4 text-sm font-medium text-gray-700"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Link
                       to={user?.role === 'mentor' ? '/mentor-dashboard' : '/mentee-dashboard'}
                       className="block py-2 px-4 text-sm font-medium text-gray-700"
                       onClick={() => setIsMenuOpen(false)}
@@ -227,19 +278,73 @@ const Header: React.FC = () => {
                     >
                       Sign In
                     </Link>
-                    <Link
-                      to="/signup"
-                      className="block py-2 px-4 text-sm font-medium text-purple-600"
-                      onClick={() => setIsMenuOpen(false)}
+                    <button
+                      onClick={() => {
+                        setShowSignUpModal(true);
+                        setIsMenuOpen(false);
+                      }}
+                      className="block w-full text-left py-2 px-4 text-sm font-medium text-purple-600"
                     >
                       Sign Up
-                    </Link>
+                    </button>
                   </>
                 )}
               </div>
             </nav>
           </div>
         )}
+
+      {/* Sign In Modal */}
+      {showSignInModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg max-w-md w-full shadow-xl">
+            <div className="flex items-center justify-between p-6 border-b">
+              <h2 className="text-2xl font-bold text-gray-900">Sign In</h2>
+              <button onClick={() => setShowSignInModal(false)} className="text-gray-500 hover:text-gray-700">
+                <X size={24} />
+              </button>
+            </div>
+            <div className="p-6">
+              <form className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <Input type="email" placeholder="Enter your email" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                  <Input type="password" placeholder="Enter your password" />
+                </div>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700">Sign In</Button>
+                <p className="text-center text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowSignInModal(false);
+                      setShowSignUpModal(true);
+                    }}
+                    className="text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    Sign Up
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Sign Up Modal */}
+      {showSignUpModal && (
+        <SignUpModal
+          isOpen={showSignUpModal}
+          onClose={() => setShowSignUpModal(false)}
+          onSwitchToSignIn={() => {
+            setShowSignUpModal(false);
+            setShowSignInModal(true);
+          }}
+        />
+      )}
       </div>
     </header>
   );

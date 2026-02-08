@@ -10,12 +10,12 @@ const Footer: React.FC = () => {
           {/* About Section */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
-                CB
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-white">CB Muchero Innovation Hub</span>
-              </div>
+              <img 
+                src="/gallery/logo2.png" 
+                alt="CB Muchero Innovation Hub" 
+                className="h-40 w-auto"
+              />
+              
             </div>
             <p className="text-sm text-gray-400 mb-4">
               Empowering women and communities with essential digital skills through accessible,

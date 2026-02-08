@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Monitor, Smartphone, Globe, Mail, TrendingUp, Shield, Cpu, Users, Video, Briefcase } from 'lucide-react';
 import { Card, CardContent } from '@/app/components/ui/card';
 import { Button } from '@/app/components/ui/button';
 import { Link } from 'react-router-dom';
+import SignUpModal from '@/app/components/SignUpModal';
 
 const Services: React.FC = () => {
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
   const basicServices = [
     {
       icon: Monitor,
@@ -59,10 +61,10 @@ const Services: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-purple-700 to-blue-600 text-white py-16">
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">Our Services</h1>
-          <p className="text-lg lg:text-xl text-purple-100 max-w-3xl">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-center">Our Services</h1>
+          <p className="text-lg lg:text-xl text-gray-100 max-w-3xl text-center mx-auto">
             Comprehensive training programs designed to empower you with essential digital skills
             for personal and professional growth.
           </p>
@@ -70,7 +72,7 @@ const Services: React.FC = () => {
       </section>
 
       {/* Basic Computer & Smartphone Literacy */}
-      <section className="py-16">
+      <section className="py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
@@ -116,11 +118,12 @@ const Services: React.FC = () => {
                   experience with computers or smartphones. We provide a supportive learning
                   environment where you can build confidence and practical skills at your own pace.
                 </p>
-                <Link to="/signup">
-                  <Button className="bg-purple-600 hover:bg-purple-700">
-                    Enroll Now
-                  </Button>
-                </Link>
+                <Button 
+                  onClick={() => setShowSignUpModal(true)}
+                  className="bg-purple-600 hover:bg-purple-700"
+                >
+                  Enroll Now
+                </Button>
               </div>
             </div>
           </div>
@@ -131,7 +134,7 @@ const Services: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            <div className="inline-block bg-blue-100 text-black px-4 py-2 rounded-full text-sm font-semibold mb-4">
               SERVICE 02
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -148,7 +151,7 @@ const Services: React.FC = () => {
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <service.icon className="text-blue-600" size={24} />
+                      <service.icon className="text-black" size={24} />
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-gray-900 mb-2">{service.title}</h3>
@@ -172,15 +175,16 @@ const Services: React.FC = () => {
                   enhance your business with digital marketing, or explore emerging technologies
                   like AI and robotics, we have the right course for you.
                 </p>
-                <Link to="/signup">
-                  <Button className="bg-blue-600 hover:bg-blue-700">
-                    Explore Advanced Courses
-                  </Button>
-                </Link>
+                <Button 
+                  onClick={() => setShowSignUpModal(true)}
+                  className="bg-black hover:bg-black"
+                >
+                  Explore Advanced Courses
+                </Button>
               </div>
               <div>
                 <img
-                  src="https://images.unsplash.com/photo-1634838083208-ce7a36701fe4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21lbiUyMGNvZGluZyUyMHByb2dyYW1taW5nfGVufDF8fHx8MTc2OTg4OTIwMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  src="/digital skills.png"
                   alt="Advanced training"
                   className="rounded-lg shadow-lg"
                 />
@@ -267,7 +271,7 @@ const Services: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-black text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             Ready to Transform Your Digital Skills?
@@ -276,16 +280,18 @@ const Services: React.FC = () => {
             Join our programs and start your journey towards digital empowerment today
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/signup">
-              <Button size="lg" className="bg-white text-purple-700 hover:bg-gray-100">
-                Get Started
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              className="bg-white text-purple-700 hover:bg-gray-100"
+              onClick={() => setShowSignUpModal(true)}
+            >
+              Get Started
+            </Button>
             <Link to="/mentorship">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-purple-700"
+                className="bg-white text-purple-700 hover:bg-gray-100"
               >
                 Explore Mentorship
               </Button>
@@ -293,6 +299,14 @@ const Services: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Sign Up Modal */}
+      {showSignUpModal && (
+        <SignUpModal
+          isOpen={showSignUpModal}
+          onClose={() => setShowSignUpModal(false)}
+        />
+      )}
     </div>
   );
 };

@@ -18,6 +18,7 @@ import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
 import MentorDashboard from '@/pages/MentorDashboard';
 import MenteeDashboard from '@/pages/MenteeDashboard';
+import ProfilePage from '@/pages/ProfilePage';
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const App: React.FC = () => {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/mentor-dashboard" element={<MentorDashboard />} />
               <Route path="/mentee-dashboard" element={<MenteeDashboard />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </main>
           <Footer />

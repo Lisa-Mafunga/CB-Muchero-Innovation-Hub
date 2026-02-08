@@ -7,12 +7,14 @@ import { Label } from '@/app/components/ui/label';
 import { Card, CardContent } from '@/app/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import SignUpModal from '@/app/components/SignUpModal';
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
@@ -138,9 +140,13 @@ const SignIn: React.FC = () => {
               <div className="text-center">
                 <p className="text-sm text-gray-600">
                   Don't have an account?{' '}
-                  <Link to="/signup" className="font-medium text-purple-600 hover:text-purple-500">
+                  <button
+                    type="button"
+                    onClick={() => setShowSignUpModal(true)}
+                    className="font-medium text-purple-600 hover:text-purple-500"
+                  >
                     Sign up here
-                  </Link>
+                  </button>
                 </p>
               </div>
             </form>
@@ -153,6 +159,15 @@ const SignIn: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      {/* Sign Up Modal */}
+      {showSignUpModal && (
+        <SignUpModal
+          isOpen={showSignUpModal}
+          onClose={() => setShowSignUpModal(false)}
+          onSwitchToSignIn={() => setShowSignUpModal(false)}
+        />
+      )}
     </div>
   );
 };
