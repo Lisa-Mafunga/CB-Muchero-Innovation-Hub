@@ -3,4 +3,4 @@ deployment:
     username: cbmucher
     password: ]fq481UFH7ic:B
     hostname: cbmucheroinnovationhub.co.zw
-    directory: /public_html/
+    directory: /home/cbmucher/public_html/
