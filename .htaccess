@@ -1,3 +1,11 @@
+# Set correct MIME types for JavaScript and CSS
+<IfModule mod_mime.c>
+  AddType application/javascript js mjs
+  AddType text/css css
+  AddEncoding gzip svgz
+  AddType image/svg+xml svg svgz
+</IfModule>
+
 # SPA rewrite rules for React Router
 <IfModule mod_rewrite.c>
   RewriteEngine On
