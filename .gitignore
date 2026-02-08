@@ -1,3 +1,4 @@
+node_modules/
 .env.example
 .github/workflows/.cpanel.yml
 .gitignore
@@ -8,4 +9,3 @@ QUICK_START.md
 SUPABASE_CREDENTIALS.md
 SUPABASE_MIGRATION_COMPLETE.md
 SUPABASE_SETUP.md
-node_modules/
