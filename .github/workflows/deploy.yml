@@ -21,10 +21,10 @@ jobs:
           fi
 
       - name: Deploy to cPanel
-        env:
-          CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
-          CPANEL_PASSWORD: ${{ secrets.CPANEL_PASSWORD }}
-          CPANEL_URL: ${{ secrets.CPANEL_URL }}
-        run: |
-          echo "Deploying to cPanel"
-          curl -T - --user "$CPANEL_USERNAME:$CPANEL_PASSWORD" "$CPANEL_URL/public_html/"
+  env:
+    CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
+    CPANEL_PASSWORD: ${{ secrets.CPANEL_PASSWORD }}
+    CPANEL_URL: ${{ secrets.CPANEL_URL }}
+  run: |
+    echo "Deploying to cPanel"
+    curl -T ./public_html/* --user "$CPANEL_USERNAME:$CPANEL_PASSWORD" "$CPANEL_URL/"
