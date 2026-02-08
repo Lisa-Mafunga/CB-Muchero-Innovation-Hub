@@ -1,0 +1,22 @@
+name: Deploy to Webzim
+
+on:
+  push:
+    branches:
+      - master  # Or your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Webzim
+        env:
+          WEBZIM_USERNAME: ${{ secrets.WEBZIM_USERNAME }}
+          WEBZIM_PASSWORD: ${{ secrets.WEBZIM_PASSWORD }}
+        run: |
+          echo "Deploying to Webzim"
+          lftp -u "$WEBZIM_USERNAME","$WEBZIM_PASSWORD" -e "mirror -R ./public_html/ /; bye" ftp://ftp.webzim.com
