@@ -28,10 +28,12 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo & Branding */}
           <Link to="/" className="flex items-center space-x-2 group">
-            {/* Logo Circle */}
-            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gradient-to-r from-purple-600 to-black text-white font-bold text-lg group-hover:shadow-lg transition-shadow">
-              CB
-            </div>
+            {/* Logo Image */}
+            <img 
+              src="/gallery/logo.png" 
+              alt="CB Muchero Innovation Hub" 
+              className="h-10 w-10 object-contain group-hover:opacity-80 transition-opacity"
+            />
             {/* Brand Text */}
             <div className="hidden sm:block">
               <div className="text-sm font-bold text-gray-900">CB Muchero</div>
