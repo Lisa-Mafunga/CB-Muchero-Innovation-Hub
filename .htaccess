@@ -1,32 +1,10 @@
-<FilesMatch "\.js$">
-  ForceType application/javascript
-  Header set Content-Type "application/javascript; charset=utf-8"
-</FilesMatch>
-
-<FilesMatch "\.mjs$">
-  ForceType application/javascript
-  Header set Content-Type "application/javascript; charset=utf-8"
-</FilesMatch>
-
-<FilesMatch "\.css$">
-  ForceType text/css
-  Header set Content-Type "text/css; charset=utf-8"
-</FilesMatch>
-
-# Set correct MIME types for JavaScript and CSS
-<IfModule mod_mime.c>
-  AddType application/javascript .js .mjs
-  AddType text/css .css
-</IfModule>
-
 # SPA rewrite rules for React Router
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  # Serve existing files directly
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-  # Fallback to index.html for client-side routing
-  RewriteRule ^ index.html [L]
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    ReWriteCond %{REQUEST_FILENAME} !-l
+    RewriteRule . /index.html [L]
 </IfModule>
