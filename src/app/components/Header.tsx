@@ -26,13 +26,17 @@ const Header: React.FC = () => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <img 
-              src="/gallery/logo.png" 
-              alt="CB Muchero Innovation Hub" 
-              className="h-45 w-auto"
-            />
+          {/* Logo & Branding */}
+          <Link to="/" className="flex items-center space-x-2 group">
+            {/* Logo Circle */}
+            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gradient-to-r from-purple-600 to-black text-white font-bold text-lg group-hover:shadow-lg transition-shadow">
+              CB
+            </div>
+            {/* Brand Text */}
+            <div className="hidden sm:block">
+              <div className="text-sm font-bold text-gray-900">CB Muchero</div>
+              <div className="text-xs text-purple-600 font-semibold">Innovation Hub</div>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
