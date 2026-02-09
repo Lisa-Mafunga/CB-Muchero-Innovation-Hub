@@ -6,6 +6,7 @@ node_bundler = "npm"
 [build.environment]
 NODE_VERSION = "18.20.0"
 NPM_VERSION = "9.8.1"
+NPM_FLAGS = "--include=dev"
 
 [context.production]
 command = "npm run build"
