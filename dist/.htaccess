@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Serve existing files directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Fallback all other requests to index.html (SPA routing)
+RewriteRule ^ index.html [L]
+
+# Optional: prevent directory listing
+Options -Indexes
