@@ -60,13 +60,13 @@ const Chatbot: React.FC = () => {
     } else if (input.includes('event')) {
       return 'We regularly host training sessions and empowerment events. Visit our Events page to see upcoming events and RSVP!';
     } else if (input.includes('contact') || input.includes('email') || input.includes('phone')) {
-      return 'You can reach us at cbmucheroinnovationhub@gmail.com or call +263 717 988 630. We\'d love to hear from you!';
+      return 'You can reach us at info@cbmucheroinnovationhub.co.zw or call +263 717 988 630. We\'d love to hear from you!';
     } else if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
       return 'Hello! How can I assist you today? I can help you with information about our mentorship programs, podcasts, training courses, events, or contact details.';
     } else if (input.includes('sign up') || input.includes('register')) {
       return 'To sign up for our programs, click the "Sign Up" button in the top navigation. You can register as a mentor or mentee to access our full platform!';
     } else {
-      return 'Thank you for your message! For specific inquiries, please contact us at cbmucheroinnovationhub@gmail.com or explore our website to learn more about our services, mentorship programs, podcasts, and upcoming events.';
+      return 'Thank you for your message! For specific inquiries, please contact us at info@cbmucheroinnovationhub.co.zw or explore our website to learn more about our services, mentorship programs, podcasts, and upcoming events.';
     }
   };
 

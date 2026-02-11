@@ -275,35 +275,24 @@ const Mentorship: React.FC = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                    T
-                  </div>
+                  <img 
+                    src="/gallery/success-stories/natasha-mbaiwa.jpeg" 
+                    alt="Natasha Mubaiwa" 
+                    className="w-12 h-12 rounded-full object-cover border-2 border-purple-200"
+                  />
                   <div>
-                    <h3 className="font-bold text-gray-900">Tendai M.</h3>
-                    <p className="text-gray-600 text-sm">Mentee</p>
+                    <h3 className="font-bold text-gray-900">Natasha Mubaiwa</h3>
+                    <p className="text-gray-600 text-sm">Founder | TashaTech | Developer</p>
                   </div>
                 </div>
                 <p className="text-gray-600 italic">
-                  "The mentorship program changed my life. My mentor helped me transition from a
-                  complete beginner to landing my first tech job in just 6 months!"
+                  "Proud to have completed the Online Basic Smartphone Literacy Course with CB Muchero Innovation Hub! This journey has strengthened my digital literacy and reaffirmed my passion for continuous learning. Grateful to Rutendo W. Muchero and the team for this opportunity to grow and upskill in a rapidly evolving digital world."
                 </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-bold">
-                    C
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900">Chipo N.</h3>
-                    <p className="text-gray-600 text-sm">Mentor</p>
-                  </div>
+                <div className="mt-4 inline-block">
+                  <span className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">
+                    Certificate of Participation ✓
+                  </span>
                 </div>
-                <p className="text-gray-600 italic">
-                  "Being a mentor has been incredibly rewarding. Seeing my mentees grow and achieve
-                  their goals makes all the effort worthwhile."
-                </p>
               </CardContent>
             </Card>
           </div>

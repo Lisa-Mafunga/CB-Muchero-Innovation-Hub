@@ -32,13 +32,8 @@ const Header: React.FC = () => {
             <img 
               src="/gallery/logo.png" 
               alt="CB Muchero Innovation Hub" 
-              className="h-10 w-10 object-contain group-hover:opacity-80 transition-opacity"
-            />
-            {/* Brand Text */}
-            <div className="hidden sm:block">
-              <div className="text-sm font-bold text-gray-900">CB Muchero</div>
-              <div className="text-xs text-purple-600 font-semibold">Innovation Hub</div>
-            </div>
+              className="h-55 w-70 object-contain group-hover:opacity-80 transition-opacity"
+            /> 
           </Link>
 
           {/* Desktop Navigation */}

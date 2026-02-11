@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, Linkedin, Youtube } from 'lucide-react';
+import { Mail, Phone, Linkedin, Youtube, Instagram, Facebook } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -37,6 +37,22 @@ const Footer: React.FC = () => {
                 className="text-gray-400 hover:text-purple-500 transition-colors"
               >
                 <Youtube size={20} />
+              </a>
+              <a
+                href="https://www.instagram.com/cbmucheroinnovationhub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-purple-500 transition-colors"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://www.facebook.com/cbmucheroinnovationhub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-purple-500 transition-colors"
+              >
+                <Facebook size={20} />
               </a>
               <a
                 href="https://www.tiktok.com/@cbmucheroinnovationhub"
@@ -105,10 +121,10 @@ const Footer: React.FC = () => {
               <li className="flex items-start space-x-2">
                 <Mail size={16} className="mt-1 flex-shrink-0" />
                 <a
-                  href="mailto:cbmucheroinnovationhub@gmail.com"
+                  href="mailto:info@cbmucheroinnovationhub.co.zw"
                   className="text-sm hover:text-purple-500 transition-colors break-all"
                 >
-                  cbmucheroinnovationhub@gmail.com
+                  info@cbmucheroinnovationhub.co.zw
                 </a>
               </li>
               <li className="flex items-start space-x-2">
@@ -127,8 +143,6 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-sm text-gray-400">
             © {new Date().getFullYear()} CB Muchero Innovation Hub. All rights reserved.
-            <br />
-            <span className="text-xs">Company Reg #: 11693/2023</span>
           </p>
         </div>
       </div>
