@@ -6,11 +6,19 @@ import { Button } from '@/app/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import SignUpModal from '@/app/components/SignUpModal';
 import SignInModal from '@/app/components/SignInModal';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/app/components/ui/dialog';
 
 const Mentorship: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showFlyerDialog, setShowFlyerDialog] = useState(false);
 
   const mentorBenefits = [
     'Share your expertise and make a real impact',
@@ -309,12 +317,12 @@ const Mentorship: React.FC = () => {
             <p className="text-lg mb-8 text-purple-100">
               Join our community today and be part of the digital transformation
             </p>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-white text-purple-700 hover:bg-gray-100"
-              onClick={() => setShowSignUpModal(true)}
+              onClick={() => setShowFlyerDialog(true)}
             >
-              Sign Up Now
+              Register
             </Button>
           </div>
         </section>
@@ -331,6 +339,33 @@ const Mentorship: React.FC = () => {
           }}
         />
       )}
+
+      {/* Inaugural Flyer Dialog */}
+      <Dialog open={showFlyerDialog} onOpenChange={setShowFlyerDialog}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Inaugural Mentorship Program</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <img
+              src="/gallery/inaugural.jpeg"
+              alt="Inaugural Mentorship Program Flyer"
+              className="w-full h-auto rounded cursor-pointer transform hover:scale-105 transition-transform"
+              onClick={() => window.open('/gallery/inaugural.jpeg', '_blank')}
+            />
+          </div>
+          <DialogFooter>
+            <div className="w-full text-right">
+              <button
+                className="mt-4 inline-flex items-center rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300"
+                onClick={() => setShowFlyerDialog(false)}
+              >
+                Close
+              </button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Sign In Modal */}
       {showSignInModal && (

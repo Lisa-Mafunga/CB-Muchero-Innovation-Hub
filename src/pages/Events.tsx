@@ -117,34 +117,92 @@ const Events: React.FC = () => {
       <section className="bg-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6 text-center">
-            <h2 className="text-2xl font-bold text-gray-900">Featured Event — 13 March 2026</h2>
+            <h2 className="text-2xl font-bold text-gray-900">Featured Event — 27 February 2026</h2>
             <p className="text-gray-600">2026 Technology Summit · Navigating Emerging Tech, AI and Governance</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div className="flex justify-center">
               <picture>
-                <source srcSet="/gallery/events/2026-tech-summit-1.png" type="image/png" />
-                <img src="/gallery/events/2026-tech-summit-1.svg" alt="2026 Technology Summit flyer 1" className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto" />
+                <source srcSet="/gallery/events/2026-tech-summit-1.jpeg" type="image/jpeg" />
+                <img
+                  src="/gallery/events/2026-tech-summit-1.jpeg"
+                  alt="2026 Technology Summit flyer 1"
+                  className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                  onClick={() => window.open('/gallery/events/2026-tech-summit-1.jpeg', '_blank')}
+                />
               </picture>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-center">
                 <picture>
-                  <source srcSet="/gallery/events/2026-tech-summit-2.png" type="image/png" />
-                  <img src="/gallery/events/2026-tech-summit-2.svg" alt="2026 Technology Summit flyer 2" className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto" />
+                  <source srcSet="/gallery/events/2026-tech-summit-2.jpeg" type="image/jpeg" />
+                  <img
+                    src="/gallery/events/2026-tech-summit-2.jpeg"
+                    alt="2026 Technology Summit flyer 2"
+                    className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                    onClick={() => window.open('/gallery/events/2026-tech-summit-2.jpeg', '_blank')}
+                  />
                 </picture>
               </div>
 
               <div className="p-4 border rounded-lg">
                 <h3 className="text-lg font-semibold">2026 Technology Summit</h3>
-                <p className="text-sm text-gray-700">Date: 13 March 2026 · 0900hrs - 1500hrs</p>
+                <p className="text-sm text-gray-700">Date: 27 February 2026 · 0900hrs - 1500hrs</p>
                 <p className="text-sm text-gray-700">Location: MH Arena, 3rd Floor, Travel Plaza, Cnr Mazowe & J.Chinamano</p>
                 <p className="text-sm text-gray-700">Tickets: Students $20 · Standard $100 · Exhibition Stand $150</p>
                 <div className="mt-4 flex gap-2">
                   <Button onClick={() => window.open('https://forms.gle/cZcjFF8zXWrBeiY6A', '_blank')}>Register / Enquire</Button>
-                  <Button onClick={() => window.open('/gallery/events/2026-tech-summit-1.png', '_blank')}>View Flyer</Button>
+                  <Button onClick={() => window.open('/gallery/events/2026-tech-summit-1.jpeg', '_blank')}>View Flyer</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Podcast Launch Event (moved below summit) */}
+      <section className="bg-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900">Podcast Launch · Upcoming</h2>
+            <p className="text-gray-600">Join us for the official launch of our podcast series</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <div className="flex justify-center">
+              <picture>
+                <source srcSet="/gallery/podcast/podcast%20launch%201.jpeg" type="image/jpeg" />
+                <img
+                  src="/gallery/podcast/podcast%20launch%201.jpeg"
+                  alt="Podcast Launch 1"
+                  className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                  onClick={() => window.open('/gallery/podcast/podcast%20launch%201.jpeg', '_blank')}
+                />
+              </picture>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-center">
+                <picture>
+                  <source srcSet="/gallery/podcast/podcast%20launch%202.jpeg" type="image/jpeg" />
+                  <img
+                    src="/gallery/podcast/podcast%20launch%202.jpeg"
+                    alt="Podcast Launch 2"
+                    className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                    onClick={() => window.open('/gallery/podcast/podcast%20launch%202.jpeg', '_blank')}
+                  />
+                </picture>
+              </div>
+
+              <div className="p-4 border rounded-lg">
+                <h3 className="text-lg font-semibold">The Digital Diva Lounge Podcast Launch</h3>
+                <p className="text-sm text-gray-700">Date: 28 February 2026</p>
+                <p className="text-sm text-gray-700">Location: MH Arena, 3rd Floor, Travel Plaza, Cnr Mazowe & J.Chinamano</p>
+                <div className="mt-4 flex gap-2">
+                  <Button onClick={() => window.open('https://forms.gle/xnia95BbC5e1kBsT7', '_blank')}>Register / Enquire</Button>
+                  <Button onClick={() => window.open('/gallery/podcast/podcast%20launch%201.jpeg', '_blank')}>View Flyer</Button>
                 </div>
               </div>
             </div>
