@@ -355,10 +355,18 @@ const MentorDashboard: React.FC = () => {
       }
       
       console.log('Calling createOrUpdateProfile with:', { userId, profileImageUrl: finalImageUrl, profileAbout });
-      const updatedProfile = await createOrUpdateProfile(userId, {
-        profile_picture_url: finalImageUrl,
-        about_bio: profileAbout,
-      });
+      const updatedProfile = await createOrUpdateProfile(
+        userId,
+        {
+          profile_picture_url: finalImageUrl,
+          about_bio: profileAbout,
+        },
+        {
+          name: user?.name,
+          email: user?.email,
+          role: user?.role,
+        }
+      );
       
       console.log('Profile saved:', updatedProfile);
       setMentorProfile(updatedProfile);

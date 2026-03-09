@@ -423,11 +423,32 @@ export const getProfileByUserId = async (userId: string) => {
   return data;
 };
 
-export const createOrUpdateProfile = async (userId: string, profile: {
-  profile_picture_url?: string;
-  about_bio?: string;
-  expertise_topics?: string[];
-}) => {
+export const createOrUpdateProfile = async (
+  userId: string,
+  profile: {
+    profile_picture_url?: string;
+    about_bio?: string;
+    expertise_topics?: string[];
+  },
+  userInfo?: {
+    name?: string;
+    email?: string;
+    role?: string;
+    avatar_url?: string;
+  }
+) => {
+  // Ensure the related user record exists (required by foreign key constraint)
+  // If the user row is missing, the profile upsert will fail.
+  const userUpsert = {
+    id: userId,
+    supabase_user_id: userId,
+    ...userInfo,
+    updated_at: new Date().toISOString(),
+  };
+
+  const { error: userError } = await supabase.from('users').upsert(userUpsert, { onConflict: 'id' });
+  if (userError) throw userError;
+
   const { data, error } = await supabase
     .from('mentor_mentee_profiles')
     .upsert(

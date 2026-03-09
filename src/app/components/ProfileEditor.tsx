@@ -111,11 +111,18 @@ export const ProfileEditor: React.FC<ProfileEditorProps> = ({
         }
       }
 
-      const updatedProfile = await createOrUpdateProfile(userId, {
-        profile_picture_url: finalImageUrl,
-        about_bio: aboutBio,
-        expertise_topics: expertiseTopics.length > 0 ? expertiseTopics : [],
-      });
+      const updatedProfile = await createOrUpdateProfile(
+        userId,
+        {
+          profile_picture_url: finalImageUrl,
+          about_bio: aboutBio,
+          expertise_topics: expertiseTopics.length > 0 ? expertiseTopics : [],
+        },
+        {
+          name: userName,
+          role: userRole,
+        }
+      );
 
       setProfile(updatedProfile);
       setProfileImage(null);
@@ -128,7 +135,13 @@ export const ProfileEditor: React.FC<ProfileEditorProps> = ({
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('Error saving profile:', err);
-      alert('Failed to save profile: ' + (err instanceof Error ? err.message : 'Unknown error'));
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : err && typeof err === 'object'
+          ? JSON.stringify(err)
+          : String(err);
+      alert('Failed to save profile: ' + (errorMessage || 'Unknown error'));
     } finally {
       setSaving(false);
     }

@@ -113,11 +113,48 @@ const Events: React.FC = () => {
         </div>
       </section>
 
+      {/* Featured Event: LinkedIn Profile Masterclass */}
+      <section className="bg-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900">17 March 2026</h2>
+            <p className="text-gray-600">Building a LinkedIn Profile That Works For You</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <div className="flex justify-center">
+              <picture>
+                <source srcSet="/gallery/events/linkedin-profile-masterclass.png" type="image/png" />
+                <img
+                  src="/gallery/events/linkedin-profile-masterclass.png"
+                  alt="Building a LinkedIn Profile That Works For You flyer"
+                  className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                  onClick={() => window.open('/gallery/events/linkedin-profile-masterclass.png', '_blank')}
+                />
+              </picture>
+            </div>
+
+            <div className="space-y-4">
+              <div className="p-4 border rounded-lg">
+                <h3 className="text-lg font-semibold">LinkedIn Profile Masterclass</h3>
+                <p className="text-sm text-gray-700">Date: 17 March 2026 · 19:00 - 20:30 CAT</p>
+                <p className="text-sm text-gray-700">Investment: $20</p>
+                <p className="text-sm text-gray-700">Live on Google Meet</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button onClick={() => window.open('https://forms.gle/KbJyLJ3QeVSQnA9n8', '_blank')}>Register / Enquire</Button>
+                  <Button onClick={() => window.open('/gallery/events/linkedin-profile-masterclass.png', '_blank')}>View Flyer</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Upcoming Event */}
       <section className="bg-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6 text-center">
-            <h2 className="text-2xl font-bold text-gray-900">5 March 2026</h2>
+            <h2 className="text-2xl font-bold text-gray-900">19 March 2026</h2>
             <p className="text-gray-600">2026 Technology Summit: 2nd Edition · From innovation to enterprise - Leveraging AI and emerging technologies for industrial growth</p>
           </div>
 
@@ -149,12 +186,114 @@ const Events: React.FC = () => {
 
               <div className="p-4 border rounded-lg">
                 <h3 className="text-lg font-semibold">2026 Technology Summit</h3>
-                <p className="text-sm text-gray-700">Date: 5 March 2026 · 0900hrs </p>
-                <p className="text-sm text-gray-700">Venue: The Village Lodge</p>
+                <p className="text-sm text-gray-700">Date: 19 March 2026 · 0900hrs </p>
+                <p className="text-sm text-gray-700">Venue: LesVigo, Gweru</p>
                 <p className="text-sm text-gray-700">Tickets: Students $50 · Standard $120 </p>
                 <div className="mt-4 flex gap-2">
                   <Button onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSc0_9YXOQ9WZpf2rzFL1QVBqSSYocw8WI5YFeFiIzK0syk64A/viewform?usp=send_form', '_blank')}>Register / Enquire</Button>
                   <Button onClick={() => window.open('/gallery/events/gweru-tech-summit.png', '_blank')}>View Flyer</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Event: The digital circle brunch */}
+      <section className="bg-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900">27 March 2026</h2>
+            <p className="text-gray-600">The digital circle brunch</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <div className="flex justify-center">
+              <picture>
+                <source srcSet="/gallery/events/The digital circle brunch.png" type="image/png" />
+                <img
+                  src="/gallery/events/The digital circle brunch.png"
+                  alt="The Digital Circle Brunch flyer"
+                  className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                  onClick={() => window.open('/gallery/events/The digital circle brunch.png', '_blank')}
+                />
+              </picture>
+            </div>
+
+            <div className="space-y-4">
+              <div className="p-4 border rounded-lg">
+                <h3 className="text-lg font-semibold">The Digital Circle Brunch</h3>
+                <p className="text-sm text-gray-700">Date: 27 March 2026 · 13:00 - 16:30 </p>
+                <p className="text-sm text-gray-700">Investment: $35</p>
+                <p className="text-sm text-gray-700">Location: TBA</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                 <div className="mt-4 flex flex-col gap-2">
+                  <Button
+                    onClick={() =>
+                      window.open(
+                        'https://wa.me/263717988630?text=Hello%20CB%20Muchero%20Innovation%20Hub%2C%20I%20would%20like%20to%20register%20for%20The%20Digital%20Circle%20Brunch.',
+                        '_blank'
+                      )
+                    }
+                  >
+                    Register / Enquire
+                  </Button>
+                  <div className="text-sm text-gray-600">
+                    <p>Or contact us directly:</p>
+                    <p className="mt-1">📞 +263 717 988 630 (WhatsApp)</p>
+                    <p>✉️ info@cbmucheroinnovationhub.co.zw</p>
+                  </div>
+                  <Button onClick={() => window.open('/gallery/events/brunch.png', '_blank')}>View Flyer</Button>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Upcoming Event: Podcast Launch */}
+      <section className="bg-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900">25 April 2026</h2>
+            <p className="text-gray-600"> The Digital Diva Lounge Podcast Launch</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <div className="flex justify-center">
+              <picture>
+                <source srcSet="/gallery/events/podcast launch.png" type="image/png" />
+                <img
+                  src="/gallery/events/podcast launch.png"
+                  alt="Podcast Launch flyer"
+                  className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                  onClick={() => window.open('/gallery/events/gweru tech summit.png', '_blank')}
+                />
+              </picture>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-center">
+                <picture>
+                  <source srcSet="/gallery/events/podcast launch 2.png" type="image/png" />
+                  <img
+                    src="/gallery/events/podcast launch 2.png"
+                    alt="Podcast Launch flyer 2"
+                    className="w-full md:w-1/2 h-auto rounded-lg shadow mx-auto cursor-pointer transform hover:scale-105 transition-transform"
+                    onClick={() => window.open('/gallery/events/podcast launch 2.png', '_blank')}
+                  />
+                </picture>
+              </div>
+
+              <div className="p-4 border rounded-lg">
+                <h3 className="text-lg font-semibold">The Digital Diva Lounge Podcast Launch</h3>
+                <p className="text-sm text-gray-700">Date: 25 April 2026 · 13:00 - 16:00 </p>
+                <p className="text-sm text-gray-700">Venue: The Sterling Hub</p>
+                <p className="text-sm text-gray-700">Tickets: $25 </p>
+                <div className="mt-4 flex gap-2">
+                  <Button onClick={() => window.open('https://forms.gle/xnia95BbC5e1kBsT7', '_blank')}>Register / Enquire</Button>
+                  <Button onClick={() => window.open('/gallery/events/podcast launch.png', '_blank')}>View Flyer</Button>
                 </div>
               </div>
             </div>

@@ -8,7 +8,9 @@ import { galleryImages, GalleryImage } from '@/data/galleryImages';
 const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [images] = useState<GalleryImage[]>(galleryImages);
+  const [images] = useState<GalleryImage[]>(() =>
+    [...galleryImages].sort((a, b) => b.date.localeCompare(a.date))
+  );
 
   const categories = [
     { value: 'all', label: 'All' },
